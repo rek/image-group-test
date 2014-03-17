@@ -13,10 +13,10 @@ define(function(require) {
     });
 
     // create a new module
-    App.module('App', {
+    App.module('ImagesApp', {
         // startWithParent: false,
         // only avaiable with object literal def of module;
-        initialize: function (options, moduleName, app) { // on prototype chain thus inheritable
+        initialize: function (options, moduleName, App) { // on prototype chain thus inheritable
             this.name = moduleName;
             App.log('Initalize: ' + App.getCurrentRoute(), this.name, 2);
         },
@@ -32,7 +32,7 @@ define(function(require) {
 
         ImagesAppRouter.Router = Marionette.AppRouter.extend({
             initialize: function () {
-                // App.log('Before Router', RotesAppRouter.name);
+                App.log('Before Router', ImagesAppRouter.name, 2);
                 // start ourselves
                 // App.switchApp('RotesApp', {});
             },
@@ -44,16 +44,16 @@ define(function(require) {
         });
 
         var executeAction = function(action, arg){
-            App.switchApp("ImagesApp");
+            App.switchApp('ImagesApp');
             action(arg);
-            // App.execute("set:active:page", "images");
+            App.execute('set:active:page', '');
         };
 
         var API = {
             list: function(){
                 App.log('test', this.name, 1);
                 require(['list_controller'], function(ListController){
-                    App.log('List images: Controller loaded, requesting images..', ImagesAppRouter.name, 1);
+                    App.log('List images: Controller loaded, requesting images..', ImagesAppRouter.name, 2);
                     executeAction(ListController.list);
                 });
             },
@@ -68,23 +68,24 @@ define(function(require) {
         };
 
         // also watch for manual events:
-        App.on("images:add", function(){
-          App.navigate("add");
+        App.on('images:add', function(){
+          App.navigate('add');
           API.add();
         });
 
-        App.on("images:remove", function(id){
-          App.navigate("remove/:" + id);
+        App.on('images:remove', function(id){
+          App.navigate('remove/:' + id);
           API.remove(id);
         });
 
-        App.on("images:list", function(){
-          App.navigate("/");
+        App.on('images:list', function(){
+          App.log('in list', this.name, 1);
+          App.navigate('/');
           API.list();
         });
 
         App.addInitializer(function(){
-            App.log('Initalizer running: Starting Router', ImagesAppRouter.name, 2);
+            App.log('Initalizer running: Starting Router', ImagesAppRouter.name, 1);
             new ImagesAppRouter.Router({
                 controller: API
             });

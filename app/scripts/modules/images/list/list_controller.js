@@ -2,6 +2,8 @@ define(['app', 'list_view'], function (App, View) {
   App.module('ImagesApp.List', function (List, App, Backbone, Marionette, $, _) {
     List.Controller = {
       list: function () {
+    App.log('list init', this.name, 1);
+
         require(['common/views', 'entities_images'], function(CommonViews){
 
           App.mainRegion.show(new CommonViews.Loading());
