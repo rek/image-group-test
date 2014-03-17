@@ -46,14 +46,15 @@ define(function(require) {
         var executeAction = function(action, arg){
             App.switchApp("ImagesApp");
             action(arg);
-            App.execute("set:active:page", "images");
+            // App.execute("set:active:page", "images");
         };
 
         var API = {
             list: function(){
+                App.log('test', this.name, 1);
                 require(['list_controller'], function(ListController){
-                    App.log('List images: Controller loaded, requesting images..', ImagesAppRouter.name, 2);
-                    executeAction(ListController.listImages);
+                    App.log('List images: Controller loaded, requesting images..', ImagesAppRouter.name, 1);
+                    executeAction(ListController.list);
                 });
             },
             remove: function(id){

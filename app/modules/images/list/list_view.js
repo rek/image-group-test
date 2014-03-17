@@ -9,8 +9,8 @@ define(["app"], function (App) {
     });
 
     View.Images = Marionette.ItemView.extend({
-      tagName: "tr",
-      template: 'images_list_one',
+      tagName: "div",
+      template: 'tile',
 
       events: {
         "click": "showBigger",
@@ -27,7 +27,8 @@ define(["app"], function (App) {
       },
 
       showBigger: function(e){
-        this.$el.toggleClass("warning");
+        // this.$el.toggleClass("warning");
+        App.log('show bigger', this.name, 1);
       },
 
       removeClicked: function(e){
