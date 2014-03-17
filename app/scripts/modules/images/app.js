@@ -14,7 +14,7 @@ define(function(require) {
 
     // create a new module
     App.module('App', {
-        startWithParent: false,
+        // startWithParent: false,
         // only avaiable with object literal def of module;
         initialize: function (options, moduleName, app) { // on prototype chain thus inheritable
             this.name = moduleName;
