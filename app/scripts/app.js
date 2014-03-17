@@ -17,7 +17,7 @@ function (Marionette) {
     // An init function for your main application object
     App.addInitializer(function () {
         this.debug = 1;
-        this.root = '/'; // <- insert app name here? eg: app-name/
+        this.root = 'app/'; // <- insert app name here? eg: app-name/
 
         // App.layout = new Layout();
         // $('body').prepend(App.layout.el);
@@ -48,13 +48,16 @@ function (Marionette) {
         // options.anotherThing = true; // Add more data to your options
     });
 
-
     App.on('initialize:after', function (options) {
         if(Backbone.history){
             // note: this is async, so the rest of the init code here will run first
             require(['modules/images/app'], function () {
                 // Trigger the initial route and enable HTML5 History API support
                 Backbone.history.start({ pushState: true, root: App.root });
+
+                // if(App.getCurrentRoute() == 'undefined'){
+                // App.log(App.getCurrentRoute(), '---', 1);
+                // App.trigger("images:list");
 
                 // App.switchApp('MyApp', {});
             });

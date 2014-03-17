@@ -3,6 +3,7 @@ define(function(require) {
     var path = 'modules/images/';
 
     requirejs.config({
+        baseUrl: 'scripts/',
         paths: {
             list_view       : path + 'list/list_view',
             list_controller : path + 'list/list_controller',
@@ -14,7 +15,7 @@ define(function(require) {
 
     // create a new module
     App.module('ImagesApp', {
-        // startWithParent: false,
+        startWithParent: false,
         // only avaiable with object literal def of module;
         initialize: function (options, moduleName, App) { // on prototype chain thus inheritable
             this.name = moduleName;
@@ -46,12 +47,11 @@ define(function(require) {
         var executeAction = function(action, arg){
             App.switchApp('ImagesApp');
             action(arg);
-            App.execute('set:active:page', '');
+            // App.execute('set:active:page', '');
         };
 
         var API = {
             list: function(){
-                App.log('test', this.name, 1);
                 require(['list_controller'], function(ListController){
                     App.log('List images: Controller loaded, requesting images..', ImagesAppRouter.name, 2);
                     executeAction(ListController.list);
@@ -79,8 +79,7 @@ define(function(require) {
         });
 
         App.on('images:list', function(){
-          App.log('in list', this.name, 1);
-          App.navigate('/');
+          App.navigate('');
           API.list();
         });
 
