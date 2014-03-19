@@ -348,6 +348,13 @@ module.exports = function (grunt) {
         ]);
     });
 
+    grunt.registerTask('w', [
+        'clean:server',
+        'concurrent:server',
+        'livereload-start',
+        'watch',
+    ]);
+
     // grunt.registerTask('test', [
     //     'clean:server',
     //     'concurrent:test',

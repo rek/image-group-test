@@ -11,21 +11,6 @@ define(['app'], function (App) {
         imagesRegion: '#tiles',
       },
 
-      snapClicked: function(e){
-        App.log('snap', this.name, 2);
-        this.trigger('image:snap');
-      },
-    });
-
-    View.Images = Marionette.ItemView.extend({
-      tagName: 'div',
-      template: 'tile',
-
-      events: {
-        'click img': 'showBigger',
-        'click button': 'removeClicked',
-      },
-
       flash: function(cssClass){
         var $view = this.$el;
         $view.hide().toggleClass(cssClass).fadeIn(800, function(){
@@ -33,6 +18,21 @@ define(['app'], function (App) {
             $view.toggleClass(cssClass)
           }, 500);
         });
+      },
+
+      snapClicked: function(e){
+        App.log('snap', this.name, 2);
+        this.trigger('image:snap');
+      },
+    });
+
+    View.Image = Marionette.ItemView.extend({
+      tagName: 'div',
+      template: 'tile',
+
+      events: {
+        'click img': 'showBigger',
+        'click button': 'removeClicked',
       },
 
       showBigger: function(e){

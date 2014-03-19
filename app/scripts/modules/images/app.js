@@ -7,13 +7,14 @@ define(function(require) {
         paths: {
             list_view       : path + 'list/list_view',
             list_controller : path + 'list/list_controller',
-            show_view       : path + 'show/show_view',
-            show_controller : path + 'show/show_controller',
+            new_view        : path + 'new/view',
+            // show_view       : path + 'show/show_view',
+            // show_controller : path + 'show/show_controller',
             entities_images : path + 'entities/images',
         }
     });
 
-    // create a new module
+    // create a new module: ImagesApp
     App.module('ImagesApp', {
         startWithParent: false,
         // only avaiable with object literal def of module;
@@ -27,7 +28,7 @@ define(function(require) {
         }
     });
 
-    // create a new sub module
+    // create a new sub module: Routers.ImagesApp
     App.module("Routers.ImagesApp", function(ImagesAppRouter, App, Backbone, Marionette, $, _){
         this.name = 'Routers.ImagesApp';
 

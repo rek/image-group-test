@@ -1,7 +1,7 @@
 define(['app'], function(App){
   App.module('Entities', function(Entities, App, Backbone, Marionette, $, _){
     var contextName = 'Entity';
-    Entities.Images = Backbone.Model.extend({
+    Entities.Image = Backbone.Model.extend({
       urlRoot: 'images',
 
       defaults: {
@@ -85,9 +85,9 @@ define(['app'], function(App){
       // return API.getContactEntity(id);
     // });
 
-    // App.reqres.setHandler('contact:entity:new', function(id){
-      // return new Entities.Contact();
-    // });
+    App.reqres.setHandler('images:entity:new', function(id){
+      return new Entities.Image();
+    });
   });
 
   return ;

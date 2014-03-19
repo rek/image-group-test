@@ -12,7 +12,8 @@ define(['app', 'list_view'], function (App, View) {
           var imagesListLayout = new View.Layout();
           // var imagesListPanel = new View.Panel();
 
-          require(['entities/common'], function(){
+
+          // require(['entities/common'], function() {
             // $.when(fetchingImages).done(function(images){
             //   App.log('fetched images datas', 'App', 1);
 
@@ -20,17 +21,17 @@ define(['app', 'list_view'], function (App, View) {
             //     collection: images
             //   });
 
-              imagesListLayout.on('image:snap', function(){
+              imagesListLayout.on('image:snap', function() {
             //     // imagesListLayout.panelRegion.show(contactsListPanel);
             //     imagesListLayout.imagesRegion.show(imagesListView);
-                require(["apps/contacts/new/new_view"], function(NewView){
-                  var newContact = ContactManager.request("contact:entity:new");
+                require(["list_view"], function(ListView) {
+                  var newImage = App.request("images:entity:new");
 
-                  var view = new NewView.Contact({
-                    model: newContact
+                  var view = new ListView.Image({
+                    model: newImage
                   });
-                  newContactView.flash("success");
-
+                  imagesListLayout.flash("success");
+                });
               });
 
             //   imagesListView.on('itemview:contact:show', function(childView, model){
@@ -40,7 +41,7 @@ define(['app', 'list_view'], function (App, View) {
               // when its all setup, tigger show
               App.mainRegion.show(imagesListLayout);
 
-          });
+          // });
 
         });
       }
