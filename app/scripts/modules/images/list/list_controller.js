@@ -32,24 +32,22 @@ define(['app', 'list_view'], function (App, View) {
             });
           });
 
+          // when initial image fetching is done
           $.when(fetchingImages).done(function(images) {
-            App.log('Fetched all image datas', 'App', 1);
-            App.log(images, this.name, 1);
+            // App.log('Fetched all image datas', 'App', 1);
+            // make a collection to show
             var imagesListView = new View.Images({
               collection: images
             });
 
-
-
             //   imagesListView.on('itemview:contact:show', function(childView, model){
             //     // App.trigger('images:show', model.get('id'));
             //   });
-
-            // when its all setup, tigger show
-            App.mainRegion.show(imagesListLayout);
+            imagesListLayout.imagesRegion.show(imagesListView);
 
           });
 
+          App.mainRegion.show(imagesListLayout);
         });
       }
     }

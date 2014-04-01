@@ -36,66 +36,52 @@ define(['app'], function(App){
     // Entities.configureStorage(Entities.ImagesCollection);
 
     var initializeImagess = function() {
-      App.log('Imagess init', contextName, 1);
-      var Images = Backbone.Model.extend({});
+      App.log('Initializing Fake Images', contextName, 1);
+      // var Images = Backbone.Model.extend({});
 
-      var fakeImagess = [
-          new Images({ name: 'First Images', slug: 'page-1' }),
-          new Images({ name: 'Second Images', slug: 'page-2' })
-      ]
-
-      return fakeImagess;
+      var fakeImages = new Entities.ImagesCollection([
+        { name: 'First Images', slug: 'page-1', src: 'fake.png' },
+        { name: 'Second Images', slug: 'page-2', src: 'fake.png' }
+      ]);
+      // fakeImagess.forEach(function(i){
+      //   i.save();
+      // });
+      return fakeImages;
     };
 
     var API = {
       getImagesEntities: function() {
-        App.log('getImagess called', contextName, 1);
-        var imagess = new Entities.ImagesCollection();
+        App.log('images:entities event detected', contextName, 2);
+        var imageCollection = new Entities.ImagesCollection();
         var defer = $.Deferred();
-        imagess.fetch({
+        imageCollection.fetch({
           complete: function(data) {
-
-            var models = initializeImagess();
-            if (imagess.length === 0) {
-              App.log('fake datas', contextName, 1);
-              // if we don't have any imagess yet, create some for convenience
-              var models = initializeImagess();
-              // FAKE NETWORK LAG
-              setTimeout(function() {
-                App.trigger('page:register', models); // add each image to the menu
-                App.log('Resetting images with FAKES', this.name, 1);
-                imagess.reset(models);
-                defer.resolve(imagess);
-              }, 500);
-
-            } else {
-              App.log('GOT GOOD DATAS', this.name, 1);
-              defer.resolve(data.responseJson);
-            }
-
+            defer.resolve(imageCollection); // send back the collection
           }
           // success: function(data) {
           //   App.log('success data', contextName, 1);
           //   defer.resolve(data);
           // }
         });
-        // var promise = defer.promise();
-        // $.when(promise).done(function(imagess) {
-        //   App.log('promise running: ' + imagess.length, contextName, 1);
-        //   if (imagess.length === 0) {
-        //     // if we don't have any imagess yet, create some for convenience
-        //     var models = initializeImagess();
-        //     // FAKE NETWORK LAG
-        //     setTimeout(function() {
-        //       App.trigger('page:register', models); // add each image to the menu
-        //       App.log('Resetting images with FAKES', this.name, 1);
-        //       imagess.reset(models);
-        //     }, 500);
+        // chain the above promise,
+        var promise = defer.promise();
+        // when the above fetch is done:
+        $.when(promise).done(function(imageCollection) {
+          // check to see if it actually had content:
+          if (imageCollection.length === 0) { // if not, get defaults.
+            // FAKE NETWORK LAG
+            setTimeout(function() {
+              // App.trigger('page:register', models); // add each image to the menu
+              // App.log('Resetting images with FAKES', this.name, 1);
+              // if we don't have any imageCollection yet, create some for convenience
+              imageCollection.reset(initializeImagess().models); // update the collection
 
-        //   }
-        // });
-        // return promise;
-        return defer.promise();
+            }, 500);
+
+          }
+        });
+
+          return promise;
       },
 
     };

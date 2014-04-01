@@ -65,8 +65,8 @@ define(['app'], function (App) {
       className: 'table table-hover',
       template: 'images_list',
       emptyView: NoImagesView,
-      itemView: View.Images,
-      itemViewContainer: 'tbody',
+      itemView: View.Image,
+      itemViewContainer: 'div',
 
       initialize: function(){
         this.listenTo(this.collection, 'reset', function(){
