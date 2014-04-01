@@ -8,7 +8,7 @@ define(function(require) {
             list_view       : path + 'list/list_view',
             list_controller : path + 'list/list_controller',
             new_view        : path + 'new/view',
-            // show_view       : path + 'show/show_view',
+            show_view       : path + 'show/view',
             // show_controller : path + 'show/show_controller',
             entities_images : path + 'entities/images',
         }
@@ -29,7 +29,7 @@ define(function(require) {
     });
 
     // create a new sub module: Routers.ImagesApp
-    App.module("Routers.ImagesApp", function(ImagesAppRouter, App, Backbone, Marionette, $, _){
+    App.module("Routers.ImagesApp", function(ImagesAppRouter, App, Backbone, Marionette, $, _) {
         this.name = 'Routers.ImagesApp';
 
         ImagesAppRouter.Router = Marionette.AppRouter.extend({
@@ -52,34 +52,34 @@ define(function(require) {
         };
 
         var API = {
-            list: function(){
-                require(['list_controller'], function(ListController){
+            list: function() {
+                require(['list_controller'], function(ListController) {
                     App.log('List images: Controller loaded, requesting images..', ImagesAppRouter.name, 2);
                     executeAction(ListController.list);
                 });
             },
-            remove: function(id){
+            remove: function(id) {
                 App.log('removing: ' + id, this.name, 1);
                 executeAction(ListController.remove, id);
             },
-            add: function(){
+            add: function() {
                 App.log('adding', this.name, 1);
                 executeAction(NewController.add);
             }
         };
 
         // also watch for manual events:
-        App.on('images:add', function(){
+        App.on('images:add', function() {
           App.navigate('add');
           API.add();
         });
 
-        App.on('images:remove', function(id){
+        App.on('images:remove', function(id) {
           App.navigate('remove/:' + id);
           API.remove(id);
         });
 
-        App.on('images:list', function(){
+        App.on('images:list', function() {
           App.navigate('');
           API.list();
         });

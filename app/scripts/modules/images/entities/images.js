@@ -1,5 +1,5 @@
 define(['app'], function(App){
-  App.module('Entities', function(Entities, App, Backbone, Marionette, $, _){
+  App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
     var contextName = 'Entity';
     Entities.Image = Backbone.Model.extend({
       urlRoot: 'images',
@@ -22,17 +22,20 @@ define(['app'], function(App){
     //         errors.lastName = 'is too short';
     //       }
     //     }
-        if( ! _.isEmpty(errors)){
+        if (! _.isEmpty(errors)) {
           return errors;
         }
       }
     });
+    // Entities.configureStorage(Entities.Image);
 
     Entities.ImagesCollection = Backbone.Collection.extend({
-      url: 'images'
+      url: 'images',
+      model: Entities.Image
     });
+    // Entities.configureStorage(Entities.ImagesCollection);
 
-    var initializeImagess = function(){
+    var initializeImagess = function() {
       App.log('Imagess init', contextName, 1);
       var Images = Backbone.Model.extend({});
 
@@ -45,39 +48,59 @@ define(['app'], function(App){
     };
 
     var API = {
-      getImagesEntities: function(){
+      getImagesEntities: function() {
         App.log('getImagess called', contextName, 1);
         var imagess = new Entities.ImagesCollection();
         var defer = $.Deferred();
         imagess.fetch({
-          complete: function(data){
-            App.log('fake datas', contextName, 1);
-            defer.resolve(imagess);
-          },
-          success: function(data){
-            App.log('success data', contextName, 1);
-            defer.resolve(data);
-          }
-        });
-        var promise = defer.promise();
-        $.when(promise).done(function(imagess){
-          App.log('promise running: ' + imagess.length, contextName, 1);
-          if (imagess.length === 0) {
-            // if we don't have any imagess yet, create some for convenience
+          complete: function(data) {
+
             var models = initializeImagess();
-            setTimeout(function () {
-              App.trigger('page:register', models); // add each images to the menu
-              imagess.reset(models);
-            }, 2000);
+            if (imagess.length === 0) {
+              App.log('fake datas', contextName, 1);
+              // if we don't have any imagess yet, create some for convenience
+              var models = initializeImagess();
+              // FAKE NETWORK LAG
+              setTimeout(function() {
+                App.trigger('page:register', models); // add each image to the menu
+                App.log('Resetting images with FAKES', this.name, 1);
+                imagess.reset(models);
+                defer.resolve(imagess);
+              }, 500);
+
+            } else {
+              App.log('GOT GOOD DATAS', this.name, 1);
+              defer.resolve(data.responseJson);
+            }
 
           }
+          // success: function(data) {
+          //   App.log('success data', contextName, 1);
+          //   defer.resolve(data);
+          // }
         });
-        return promise;
+        // var promise = defer.promise();
+        // $.when(promise).done(function(imagess) {
+        //   App.log('promise running: ' + imagess.length, contextName, 1);
+        //   if (imagess.length === 0) {
+        //     // if we don't have any imagess yet, create some for convenience
+        //     var models = initializeImagess();
+        //     // FAKE NETWORK LAG
+        //     setTimeout(function() {
+        //       App.trigger('page:register', models); // add each image to the menu
+        //       App.log('Resetting images with FAKES', this.name, 1);
+        //       imagess.reset(models);
+        //     }, 500);
+
+        //   }
+        // });
+        // return promise;
+        return defer.promise();
       },
 
     };
 
-    App.reqres.setHandler('images:entities', function(){
+    App.reqres.setHandler('images:entities', function() {
       return API.getImagesEntities();
     });
 
@@ -85,7 +108,8 @@ define(['app'], function(App){
       // return API.getContactEntity(id);
     // });
 
-    App.reqres.setHandler('images:entity:new', function(id){
+    App.reqres.setHandler('images:entity:new', function(id) {
+      App.log('Making new image', this.name, 1);
       return new Entities.Image();
     });
   });

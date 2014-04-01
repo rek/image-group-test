@@ -11,14 +11,14 @@ define(['app'], function (App) {
         imagesRegion: '#tiles',
       },
 
-      flash: function(cssClass){
-        var $view = this.$el;
-        $view.hide().toggleClass(cssClass).fadeIn(800, function(){
-          setTimeout(function(){
-            $view.toggleClass(cssClass)
-          }, 500);
-        });
-      },
+      // flash: function(cssClass){
+      //   var $view = this.$el;
+      //   $view.hide().toggleClass(cssClass).fadeIn(800, function(){
+      //     setTimeout(function(){
+      //       $view.toggleClass(cssClass)
+      //     }, 500);
+      //   });
+      // },
 
       snapClicked: function(e){
         App.log('snap', this.name, 2);
