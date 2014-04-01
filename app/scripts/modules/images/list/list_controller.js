@@ -11,7 +11,8 @@ define(['app', 'list_view'], function (App, View) {
           var fetchingImages = App.request('images:entities');
 
           var imagesListLayout = new View.Layout();
-          // var imagesListPanel = new View.Panel();
+
+          var imagesCollection; // the main collection for this page.
 
           // require(['entities/common'], function() {
           imagesListLayout.on('image:snap', function() {
@@ -21,23 +22,24 @@ define(['app', 'list_view'], function (App, View) {
             require(["list_view"], function(ListView) {
               var newImage = App.request("images:entity:new");
 
-              var newImageView = new ListView.Image({
-                model: newImage
-              });
+              // var newImageView = new ListView.Image({
+              //   model: newImage
+              // });
 
               // save it some where
-              // images.add(newImage);
+              imagesCollection.add(newImage);
 
-              // imagesListLayout.flash("success");
+              imagesListLayout.flash("success");
             });
           });
 
           // when initial image fetching is done (ie: initial page load)
           $.when(fetchingImages).done(function(images) {
+            imagesCollection = images;
             // App.log('Fetched all image datas', 'App', 1);
             // make a collection to show
-            var imagesListView = new View.Images({
-              collection: images
+            imagesListView = new View.Images({
+              collection: imagesCollection
             });
 
             //   imagesListView.on('itemview:image:show', function(childView, model){
