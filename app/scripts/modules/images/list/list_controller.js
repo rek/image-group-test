@@ -32,7 +32,7 @@ define(['app', 'list_view'], function (App, View) {
             });
           });
 
-          // when initial image fetching is done
+          // when initial image fetching is done (ie: initial page load)
           $.when(fetchingImages).done(function(images) {
             // App.log('Fetched all image datas', 'App', 1);
             // make a collection to show
@@ -40,13 +40,21 @@ define(['app', 'list_view'], function (App, View) {
               collection: images
             });
 
-            //   imagesListView.on('itemview:contact:show', function(childView, model){
+            //   imagesListView.on('itemview:image:show', function(childView, model){
             //     // App.trigger('images:show', model.get('id'));
             //   });
+
+            imagesListView.on("itemview:image:delete", function(childView, model){
+              // auto magically call's remove in the view.
+              model.destroy();
+            });
+
+            // when the data is here, show it in this region
             imagesListLayout.imagesRegion.show(imagesListView);
 
           });
 
+          // show the whole layout
           App.mainRegion.show(imagesListLayout);
         });
       }

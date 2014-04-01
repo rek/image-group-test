@@ -80,8 +80,7 @@ define(['app'], function(App){
 
           }
         });
-
-          return promise;
+        return promise;
       },
 
     };

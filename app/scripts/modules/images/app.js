@@ -84,7 +84,7 @@ define(function(require) {
           API.list();
         });
 
-        App.addInitializer(function(){
+        App.addInitializer(function() {
             App.log('Initalizer running: Starting Router', ImagesAppRouter.name, 1);
             new ImagesAppRouter.Router({
                 controller: API
