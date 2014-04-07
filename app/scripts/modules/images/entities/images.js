@@ -40,8 +40,8 @@ define(['app'], function(App){
       // var Images = Backbone.Model.extend({});
 
       var fakeImages = new Entities.ImagesCollection([
-        { name: 'First Images', slug: 'page-1', src: 'fake.png' },
-        { name: 'Second Images', slug: 'page-2', src: 'fake.png' }
+        // { name: 'First Images', slug: 'page-1', src: 'fake.png' },
+        // { name: 'Second Images', slug: 'page-2', src: 'fake.png' }
       ]);
       // fakeImagess.forEach(function(i){
       //   i.save();

@@ -26,23 +26,26 @@ define(['app', 'list_view'], function(App, View) {
 
                             navigator.camera.getPicture(
                                 function onSuccess(imageData) {
-                                    newImage.src = 'data:image/jpeg;base64,' + imageData;
+                                    // newImage.src = 'data:image/jpeg;base64,' + imageData;
+                                    newImage.set('src', imageData);
+                                    imagesCollection.add(newImage);
                                 },
                                 function onFail(message) {
                                     console.log('Failed because: ' + message);
-                                }, {
+                                },
+                                {
                                     quality: 50,
-                                    destinationType: Camera.DestinationType.DATA_URL
+                                    // destinationType: Camera.DestinationType.DATA_URL
+                                    destinationType: navigator.camera.DestinationType.FILE_URI
                                 }
                             );
 
+                            // save it some where
+                            // imagesCollection.add(newImage);
 
                             // var newImageView = new ListView.Image({
                             //   model: newImage
                             // });
-
-                            // save it some where
-                            imagesCollection.add(newImage);
 
                             imagesListLayout.flash('success');
                         });

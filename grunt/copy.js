@@ -24,7 +24,8 @@ module.exports = {
         dest: '<%= settings.dist %>/index.html',
         options: {
             process: function(content) {
-                return content.replace(/<script>require\(\[\"\/\/localhost:35729\/livereload.js\"\]\);<\/script>/g, '');
+                var processedIndex = content.replace(/<script>require\(\[\"\/\/localhost:35729\/livereload.js\"\]\);<\/script>/g, '');
+                return processedIndex.replace(/<!-- cordova script placeholder -->/g, '<script src=\"cordova.js\"><\/script>');
             }
         }
     }

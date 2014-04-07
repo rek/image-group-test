@@ -9,3 +9,7 @@ app/styles/*.css
 .tmp/
 *.sublime-*
 *compiled.js
+platforms/android/assets/www
+platforms/*/ant-*
+platforms/*/*/ant-*
+npm-debug.log

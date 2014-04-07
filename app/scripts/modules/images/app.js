@@ -16,7 +16,7 @@ define(function(require) {
 
     // create a new module: ImagesApp
     App.module('ImagesApp', {
-        startWithParent: false,
+        // startWithParent: false,
         // only avaiable with object literal def of module;
         initialize: function(options, moduleName, App) { // on prototype chain thus inheritable
             this.name = moduleName;
@@ -39,7 +39,7 @@ define(function(require) {
                 // App.switchApp('RotesApp', {});
             },
             appRoutes: {
-                '': 'list',
+                'list': 'list',
                 'add': 'add',
                 'remove/:id': 'remove',
             }
@@ -80,7 +80,7 @@ define(function(require) {
         });
 
         App.on('images:list', function() {
-            App.navigate('');
+            App.navigate('list');
             API.list();
         });
 

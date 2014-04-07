@@ -1,104 +1,121 @@
 define([
-    'marionette'
-],
+        'marionette'
+    ],
 
-function () {
-    'use strict';
+    function() {
+        'use strict';
 
-    var App = new Backbone.Marionette.Application();
+        var App = new Backbone.Marionette.Application();
 
-    App.addRegions({
-        pageRegion:   '#page-region',
-        mainRegion:   '#main-region',
-        // same as:
-        // App.container = new Backbone.Marionette.Region({el:'#main'});
-    });
+        App.addRegions({
+            pageRegion: '#page-region',
+            mainRegion: '#main-region',
+            // same as:
+            // App.container = new Backbone.Marionette.Region({el:'#main'});
+        });
 
-    // An init function for your main application object
-    App.addInitializer(function () {
-        this.debug = 1;
-        this.root = 'app/'; // <- insert app name here? eg: app-name/
+        // An init function for your main application object
+        App.addInitializer(function() {
+            this.debug = 1;
+            this.root = '/'; // <- insert app name here? eg: app-name/
 
-        // App.layout = new Layout();
-        // $('body').prepend(App.layout.el);
-        // App.layout.render();
-        // App.layout.menu.show(myMenu);
-    });
+            // App.layout = new Layout();
+            // $('body').prepend(App.layout.el);
+            // App.layout.render();
+            // App.layout.menu.show(myMenu);
+        });
 
-    // Close out the view and display nothing in #container.
-    // region.close();
+        // Close out the view and display nothing in #container.
+        // region.close();
 
-    // Add as many of these as you like
-    App.addInitializer(function () {
+        // Add as many of these as you like
+        App.addInitializer(function() {
 
-    });
+        });
 
-    App.navigate = function(route,  options){
-        options || (options = {});
-        Backbone.history.navigate(route, options);
-    };
+        App.navigate = function(route, options) {
+            options || (options = {});
+            Backbone.history.navigate(route, options);
+        };
 
-    App.getCurrentRoute = function(){
-        App.log('Get current rote', 'App', 3);
-        return Backbone.history.fragment;
-    };
+        App.getCurrentRoute = function() {
+            App.log('Get current rote', 'App', 3);
+            return Backbone.history.fragment;
+        };
 
-    App.on('initialize:before', function (options) {
-        App.log('Initialization Started', 'App', 2);
-        // options.anotherThing = true; // Add more data to your options
-    });
+        /**
+         * @param options
+         */
+        App.on('initialize:before', function() {
+            App.log('Initialization Started', 'App', 2);
+            // options.anotherThing = true; // Add more data to your options
+        });
 
-    App.on('initialize:after', function (options) {
-        if(Backbone.history){
-            // note: this is async, so the rest of the init code here will run first
-            require(['modules/images/app'], function () {
-                // Trigger the initial route and enable HTML5 History API support
-                Backbone.history.start({ pushState: true, root: App.root });
+        /**
+         * @param options
+         */
+        App.on('initialize:after', function() {
+            if (Backbone.history) {
+                // note: this is async, so the rest of the init code here will run first
+                require(['modules/images/app'], function () {
+                    // Trigger the initial route and enable HTML5 History API support
+                    // Backbone.history.start({
+                    //     pushState: true,
+                    //     root: App.root
+                    // });
 
-                // if(App.getCurrentRoute() == 'undefined'){
-                // App.log(App.getCurrentRoute(), '---', 1);
-                // App.trigger("images:list");
+                    Backbone.history.start();
 
-                // App.switchApp('MyApp', {});
-            });
-        }
+                    // set a default route
+                    if (App.getCurrentRoute() === '') {
 
-        App.log('Initialization Finished', 'App', 2);
-    });
+                        App.trigger('images:list');
+                    }
+                    // App.switchApp('MyApp', {});
+                });
+            }
 
-    /**
-     * App changer
-     */
-    App.switchApp = function(appName, args){
-        App.log('Switching to: ' + appName, 'App', 1);
-        // do not initalise a new module if no name is given
-        var currentApp = appName ? App.module(appName) : null;
-        if (App.currentApp === currentApp){ return; }
+            App.log('Initialization Finished', 'App', 2);
+        });
 
-        if (App.currentApp) {
-            App.currentApp.stop();
-        }
+        /**
+         * App changer
+         */
+        App.switchApp = function(appName, args) {
+            App.log('Switching to: ' + appName, 'App', 1);
+            // do not initalise a new module if no name is given
+            var currentApp = appName ? App.module(appName) : null;
+            if (App.currentApp === currentApp) {
+                return;
+            }
 
-        App.currentApp = currentApp;
-        if (currentApp) {
-          currentApp.start(args);
-        }
-    };
+            if (App.currentApp) {
+                App.currentApp.stop();
+            }
 
-    /**
-     * Log function.
-     * Pass all messages through here so we can disable for prod
-     */
-    App.log = function(message, domain, level){
-        if(App.debug < level) { return; }
-        if(typeof message !== 'string'){
-            console.log('Fancy object (' + domain + ')', message);
-        } else {
-            console.log((domain || false ? '('+domain+') ' : '') + message);
-        }
-    };
+            App.currentApp = currentApp;
+            if (currentApp) {
+                currentApp.start(args);
+            }
+        };
 
-    // Return the instantiated App (there should only be one)
-    return App;
+        /**
+         * Log function.
+         * Pass all messages through here so we can disable for prod
+         */
+        App.log = function(message, domain, level) {
+            if (App.debug < level) {
+                return;
+            }
+            if (typeof message !== 'string') {
+                console.log('Fancy object (' + domain + ')', message);
+            } else {
+                console.log((domain || false ? '(' + domain + ') ' : '') + message);
+            }
+        };
 
-});
+        // Return the instantiated App (there should only be one)
+        return App;
+
+    }
+);
