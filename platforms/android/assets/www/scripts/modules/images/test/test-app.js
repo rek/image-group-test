@@ -1,0 +1,1 @@
+"use strict";define(["marionette"],function(){var e=new Backbone.Marionette.Application;return e});

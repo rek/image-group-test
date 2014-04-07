@@ -1,0 +1,5 @@
+<div class="tile">
+  <img src="images/{src}" />
+  <span class="remove">X</span>
+  <span>{name}</span>
+</div>

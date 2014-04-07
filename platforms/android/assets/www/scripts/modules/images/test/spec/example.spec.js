@@ -1,0 +1,1 @@
+"use strict";define(["app","../entities/XXXXX"],function(e,t){var t=new e.Entities.XXXXX;describe("Examples collection",function(){it("should exist",function(){expect(t).to.exist})})});

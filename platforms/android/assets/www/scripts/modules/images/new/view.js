@@ -1,0 +1,1 @@
+define(["app","apps/contacts/common/views"],function(e,n){return e.module("ImagesApp.New.View",function(e,t){e.Contact=n.Form.extend({title:"New Image",onRender:function(){t.log("rendering image",this.name,1)}})}),e.ImagesApp.New.View});
