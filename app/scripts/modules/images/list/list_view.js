@@ -69,7 +69,7 @@ define(['app'], function (App) {
       template: 'images_list',
       emptyView: NoImagesView,
       itemView: View.Image,
-      // itemViewContainer: 'div',
+      itemViewContainer: '.images_list',
 
       initialize: function(){
         this.listenTo(this.collection, 'reset', function() {

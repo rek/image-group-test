@@ -14,6 +14,12 @@ requirejs.config({
         templates              : 'common/templates',
         spin                   : '../bower_components/spinjs/spin',
         'spin.jquery'          : '../bower_components/spinjs/jquery.spin',
+
+        'list_view'      : 'modules/images/list/list_view',
+        'list_controller': 'modules/images/list/list_controller',
+        'show_view'      : 'modules/images/show/show_view',
+        'show_controller': 'modules/images/show/show_controller',
+        'entities_images'  : 'modules/images/entities/images',
     },
     shim: {
         jquery : {
