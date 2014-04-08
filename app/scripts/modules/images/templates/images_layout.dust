@@ -6,8 +6,10 @@
 
   <section>
     <div id="success">AWESOME</div>
-    <navigation id='tiles'></navigation>
     <button id="capture">TAKE</button>
+    <div id='tiles'></div>
   </section>
+
+  <div id="droppable"></div>
 
 </div>

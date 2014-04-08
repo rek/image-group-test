@@ -3,20 +3,14 @@ require([
     'jquery',
     'backbone',
     'app',
+    'jquery.ui',
     'marionette',
     'dust',
     'dustMarionette',
+    // 'backbone.hammer',
     'templates',
 ], function($, Backbone, App) {
     'use strict';
-
-    var mobileFound = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-
-    if (mobileFound) {
-        console.log('MOBILE');
-    } else {
-        // console.log('NOT MOBILE');
-    }
 
     // any extras?
     App.on('initialize:after', function() {
@@ -25,15 +19,15 @@ require([
         // }
     });
 
+    var mobileFound = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
     // Define your master router on the application namespace and trigger all
     // navigation from this instance.
-    App.start();
     if (mobileFound) {
-        // require(['../cordova'], function() {
-            document.addEventListener('deviceready', function() {
-                App.start();
-            }, false);
-        // });
+        console.log('MOBILE');
+        document.addEventListener('deviceready', function() {
+            App.start();
+        }, false);
     } else {
         $(function() {
             App.start();

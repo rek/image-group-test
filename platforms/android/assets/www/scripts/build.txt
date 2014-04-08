@@ -15,6 +15,7 @@ modules/images/entities/images.js
 modules/images/list/list_controller.js
 modules/images/app.js
 app.js
+jquery/ui.js
 dust.js
 dustMarionette.js
 common/templates.js

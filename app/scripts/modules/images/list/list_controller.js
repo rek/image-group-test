@@ -24,24 +24,26 @@ define(['app', 'list_view'], function(App, View) {
                         require(['list_view'], function(ListView) {
                             var newImage = App.request('images:entity:new');
 
-                            navigator.camera.getPicture(
-                                function onSuccess(imageData) {
-                                    // newImage.src = 'data:image/jpeg;base64,' + imageData;
-                                    newImage.set('src', imageData);
-                                    imagesCollection.add(newImage);
-                                },
-                                function onFail(message) {
-                                    console.log('Failed because: ' + message);
-                                },
-                                {
-                                    quality: 50,
-                                    // destinationType: Camera.DestinationType.DATA_URL
-                                    destinationType: navigator.camera.DestinationType.FILE_URI
-                                }
-                            );
-
-                            // save it some where
-                            // imagesCollection.add(newImage);
+                            if (navigator.camera) { // if cordova
+                                navigator.camera.getPicture(
+                                    function onSuccess(imageData) {
+                                        newImage.set('src', 'data:image/jpeg;base64,' + imageData);
+                                        // newImage.set('src', imageData);
+                                        imagesCollection.add(newImage);
+                                    },
+                                    function onFail(message) {
+                                        console.log('Failed because: ' + message);
+                                    },
+                                    {
+                                        quality: 50,
+                                        destinationType: navigator.camera.DestinationType.DATA_URL
+                                        // destinationType: navigator.camera.DestinationType.FILE_URI
+                                    }
+                                );
+                            } else { // else if testing mode
+                                newImage.set('src', 'images/fake.png');
+                                imagesCollection.add(newImage);
+                            }
 
                             // var newImageView = new ListView.Image({
                             //   model: newImage

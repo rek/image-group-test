@@ -1,4 +1,4 @@
-<div class="tile">
+<div class="image">
   <img src="{src}" />
   <span class="remove">X</span>
   <span>{name}</span>
