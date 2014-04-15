@@ -40,8 +40,12 @@ define(['app'], function(App) {
             },
 
             swipedLeft: function(e) {
-                // App.log(e, this.name, 1);
+                App.log('Swipped left on image', 'List view', 1);
+                App.log(e, 'List view', 1);
                 // e.preventDefault();
+                $(e.target).animate({
+                    right: '50%', opacity: 0
+                }, 800)
             },
 
             showBigger: function(e) {
@@ -66,13 +70,12 @@ define(['app'], function(App) {
             },
 
             onRender: function() {
-                // console.log('lolol0:' + this.el);
-                // this.$el.draggable();
-                this.$el.draggable({
-                    revert: true,
-                    axis: "x"
+                // console.log('Rendering Image:' + this.el);
+                // this.$el.draggable({
+                    // revert: true,
+                    // axis: "x"
                     // containment: 'parent' // cannot move out of parent
-                });
+                // });
 
             }
         });
@@ -100,15 +103,15 @@ define(['app'], function(App) {
                 });
             },
 
-            onRender: function() {
-                console.log('rendering list');
-                $("#droppable").droppable({
-                    // accept: ".image",
-                    drop: function(event, ui) {
-                        $(ui.draggable).fadeOut();
-                    }
-                });
-            },
+            // onRender: function() {
+            //     console.log('rendering list');
+            //     $("#droppable").droppable({
+            //         // accept: ".image",
+            //         drop: function(event, ui) {
+            //             $(ui.draggable).fadeOut();
+            //         }
+            //     });
+            // },
 
             onCompositeCollectionRendered: function() {
                 App.log('Rendered list of images called', 'images list view', 1);

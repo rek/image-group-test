@@ -1,7 +1,7 @@
 requirejs.config({
     paths: {
         jquery                 : '../bower_components/jquery/dist/jquery',
-        'jquery.ui'            : '../bower_components/jquery-ui/ui/jquery-ui',
+        // 'jquery.ui'            : '../bower_components/jquery-ui/ui/jquery-ui',
         underscore             : '../bower_components/lodash/dist/lodash',
         backbone               : '../bower_components/backbone/backbone',
         marionette             : '../bower_components/marionette/lib/core/amd/backbone.marionette',
@@ -16,8 +16,8 @@ requirejs.config({
         spin                   : '../bower_components/spinjs/spin',
         'spin.jquery'          : '../bower_components/spinjs/jquery.spin',
 
-        // 'hammer.jquery'        : '../bower_components/jquery-hammerjs/jquery.hammer-full.min',
-        // 'backbone.hammer'      : '../bower_components/backbone.hammer.js/backbone.hammer',
+        'hammer.jquery'        : '../bower_components/jquery-hammerjs/jquery.hammer-full.min',
+        'backbone.hammer'      : '../bower_components/backbone.hammer.js/backbone.hammer',
 
         'list_view'            : 'modules/images/list/list_view',
         'list_controller'      : 'modules/images/list/list_controller',
@@ -32,7 +32,7 @@ requirejs.config({
         jquery : {
             exports : 'jQuery'
         },
-        'jquery.ui' : ['jquery'],
+        // 'jquery.ui' : ['jquery'],
         underscore: {
             exports: '_'
         },

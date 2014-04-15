@@ -3,11 +3,11 @@ require([
     'jquery',
     'backbone',
     'app',
-    'jquery.ui',
+    // 'jquery.ui',
     'marionette',
     'dust',
     'dustMarionette',
-    // 'backbone.hammer',
+    'backbone.hammer',
     'templates',
 ], function($, Backbone, App) {
     'use strict';

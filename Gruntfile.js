@@ -45,10 +45,8 @@ module.exports = function(grunt) {
                         urls: ['http://localhost:8888/index.html']
                     }
                 }
-            },
-            'mocha_phantomjs': {
-                all: ['app/scripts/modules/{,*/}test/*.html']
             }
+
         }
     });
 
